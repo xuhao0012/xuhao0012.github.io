@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="first-article, xuhao0012">
+    <meta name="keywords" content="js闭包, xuhao0012">
     <meta name="description" content="code">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>first-article | xuhao0012</title>
+    <title>js闭包 | xuhao0012</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">first-article</h1>
+                    <h1 class="description center-align post-title">js闭包</h1>
                 </div>
             </div>
         </div>
@@ -459,12 +459,63 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
-<p>title: first article<br>date: 2020-05-28 15:02:07<br>tags:</p>
-<h2 id="first"><a href="#first" class="headerlink" title="first"></a>first</h2><p>info</p>
-<p>##next</p>
-<p>asdnu</p>
-<p>nfo</p>
+                <h1 id="js闭包"><a href="#js闭包" class="headerlink" title="js闭包"></a>js闭包</h1><h2 id="找到问题"><a href="#找到问题" class="headerlink" title="找到问题"></a>找到问题</h2><p>今天学习JavaScript闭包的时候，刚开始看示例代码的时候，不是非常的理解<br>代码如下</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">arr1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> arr<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> arr<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token function">arr1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> b <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>无论这个arr取到哪个下标，他的值都是10，因为我是先学了c/c++,java然后再开始接触JavaScript。按照之前我学习的语言来说，这个for循环里面每次返回的都应该是i值，不应该会出现每次push的都是10。</p>
+<h2 id="找到思路"><a href="#找到思路" class="headerlink" title="找到思路"></a>找到思路</h2><p>正当我百思不得其解的时候，我看到了作用域的概念，在JavaScript里面花括号不是一个块级作用域，我们学习了一些语言再去学习其他语言的时候总会犯一些先入为主的错误，理所当然的认为花括号里面是一个作用域，其实不然，在JavaScript中，只有函数拥有一个块级作用域。那我们要怎么解决呢？我看了很久的示例代码，才想明白。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">arr1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> arr<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> arr<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token function">arr1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> b <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="总结与思考"><a href="#总结与思考" class="headerlink" title="总结与思考"></a>总结与思考</h2><p>首先，arr是一个以函数的返回值为元素的数组，所以当b取了返回的arr某个元素的时候，他需要调用函数，所以要在arr[]后面加个括号，这个是我一开始没有注意到的点，但是所以当var b=···调用函数的时候，运行到for循环语句，由于他不是一个块级作用域，所以每次return的都是循环完的i=10。找到了原因，我再把目光转向了解决了方法的源代码，首先，每次循环的时候把i当作一个函数参数传了进去，然后再function匿名函数里面嵌套了一个函数，而他的返回值正是父作用域的参数，按照常理来说，当外面这个匿名函数执行完之后上下文环境是会被销毁的，包括其中的变量，但是它内部还有一个函数，他return的这个值正是父作用域传递进来的参数，而内部的这个函数形成了一个块级作用域，所以这个index变量就不会被销毁，所以这个父作用域就不会被销毁。搞清楚了闭包的原理，我在去网上查找了一些闭包实例的资料，来加深自己的理解，强化概念。我在博客园的一个大牛那里找到了非常详细的解释，讲的非常好，链接是：<a href="https://www.cnblogs.com/wangfupeng1988/p/3994065.html" target="_blank" rel="noopener">https://www.cnblogs.com/wangfupeng1988/p/3994065.html</a></p>
+<p>通过仔细阅读这里面的文字和范例，我了解到了闭包两个较为常用的场景，第一种是函数作为返回值<br>代码如下：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> max <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">bar</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> max<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">var</span> f1 <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">f1</span><span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上代码，bar函数作为返回值，赋值给f1变量。执行f1(15)时，用到了fn作用域下的max变量的值。第二种是函数作为参数被传递<br>代码如下：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+    fn <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> max<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+    <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上代码中，fn函数作为一个参数被传递进入另一个函数，赋值给f参数。执行f(15)时，max变量的取值是10，而不是100。这其中非常关键的一点是自由变量跨作用域取值时，要去创建这个函数的作用域取值，而不是“父作用域”。</p>
 
             </div>
             <hr/>
@@ -490,7 +541,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/xuhao0012/xuhao0012.github.io.git/2020/05/28/first-article/">https://github.com/xuhao0012/xuhao0012.github.io.git/2020/05/28/first-article/</a>
+                    <a href="https://github.com/xuhao0012/xuhao0012.github.io.git/2020/05/28/js-bi-bao/">https://github.com/xuhao0012/xuhao0012.github.io.git/2020/05/28/js-bi-bao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -698,25 +749,23 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2020/05/28/first-article/">
+                <a href="/2020/05/28/js-bi-bao/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/medias/featureimages/15.jpg" class="responsive-img" alt="first-article">
+                        <img src="https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="js闭包">
                         
-                        <span class="card-title">first-article</span>
+                        <span class="card-title">js闭包</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-title: first articledate: 2020-05-28 15:02:07tags:
-firstinfo
-##next
-asdnu
-nfo
-
+                            js闭包找到问题今天学习JavaScript闭包的时候，刚开始看示例代码的时候，不是非常的理解代码如下
+function arr1(){
+    var arr=[];
+    for(var i = 0;i &lt; 10;i++){
+ 
                         
                     </div>
                     <div class="publish-info">
@@ -742,25 +791,23 @@ nfo
                 本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/28/first-article/">
+                <a href="/2020/05/28/js-bi-bao/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/medias/featureimages/15.jpg" class="responsive-img" alt="first-article">
+                        <img src="https://cdn.jsdelivr.net/gh/xuhao0012/xuhao0012.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="js闭包">
                         
-                        <span class="card-title">first-article</span>
+                        <span class="card-title">js闭包</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-title: first articledate: 2020-05-28 15:02:07tags:
-firstinfo
-##next
-asdnu
-nfo
-
+                            js闭包找到问题今天学习JavaScript闭包的时候，刚开始看示例代码的时候，不是非常的理解代码如下
+function arr1(){
+    var arr=[];
+    for(var i = 0;i &lt; 10;i++){
+ 
                         
                     </div>
                     <div class="publish-info">
